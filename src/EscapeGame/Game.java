@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
 
 /**
  * 2D Escape Game
+ *
  * @author NTropy
  */
 public class Game extends Engine {
@@ -32,8 +33,10 @@ public class Game extends Engine {
     public Desk desk1 = new Desk(200, 300, 20, 50);
 
     public Desk desk2 = new Desk(500, 700, 20, 50);
-    
+
     public Desk[] desks;
+
+    public int deskNum;
 
     private Game() {
         super();
@@ -53,7 +56,7 @@ public class Game extends Engine {
     @SuppressWarnings("SleepWhileInLoop")
     public void run() {
         super.initialize();
-        int deskNum = 2;
+        deskNum = 2;
         desks = new Desk[deskNum];
         desks[0] = desk1;
         desks[1] = desk2;
@@ -82,58 +85,60 @@ public class Game extends Engine {
      */
     @Override
     public void update() {
-        if (!(mainGame.posX + 11 > desk1.posX && mainGame.posX < desk1.posX + desk1.length && mainGame.posY + 10 > desk1.posY && mainGame.posY + 31 < desk1.posY + desk1.width)) {
+        for (int j = 0; j < deskNum; j++) {
+            if (!(mainGame.posX + 11 > desks[j].posX && mainGame.posX < desks[j].posX + desks[j].length && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
 
-            if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
-                posX++;
+                if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
+                    posX++;
+                }
             }
-        }
-        if (!(mainGame.posX - 11 < desk1.posX + (2 * desk1.length) && mainGame.posX + 9 > desk1.posX && mainGame.posY + 10 > desk1.posY && mainGame.posY + 31 < desk1.posY + desk1.width)) {
+            if (!(mainGame.posX - 11 < desks[j].posX + (2 * desks[j].length) && mainGame.posX + 9 > desks[j].posX && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
 
-            if (input.isKeyDown(KeyEvent.VK_LEFT)) {
-                posX--;
+                if (input.isKeyDown(KeyEvent.VK_LEFT)) {
+                    posX--;
+                }
             }
-        }
 
-        if (!(mainGame.posY > desk1.posY && mainGame.posY < desk1.posY + (desk1.width - 29) && mainGame.posX + 9 > desk1.posX && mainGame.posX < desk1.posX + (2 * desk1.length) + 10)) {
+            if (!(mainGame.posY > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 29) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
 
-            if (input.isKeyDown(KeyEvent.VK_UP)) {
-                posY--;
+                if (input.isKeyDown(KeyEvent.VK_UP)) {
+                    posY--;
+                }
             }
-        }
 
-        if (!(mainGame.posY + 11 > desk1.posY && mainGame.posY < desk1.posY + (desk1.width - 30) && mainGame.posX + 9 > desk1.posX && mainGame.posX < desk1.posX + (2 * desk1.length) + 10)) {
+            if (!(mainGame.posY + 11 > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 30) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
 
-            if (input.isKeyDown(KeyEvent.VK_DOWN)) {
-                posY++;
+                if (input.isKeyDown(KeyEvent.VK_DOWN)) {
+                    posY++;
+                }
             }
-        }
 
-        if (!(mainGame.posX + 11 > desk1.posX && mainGame.posX < desk1.posX + desk1.length && mainGame.posY + 10 > desk1.posY && mainGame.posY + 31 < desk1.posY + desk1.width)) {
+            if (!(mainGame.posX + 11 > desks[j].posX && mainGame.posX < desks[j].posX + desks[j].length && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
 
-            if (input.isKeyDown(KeyEvent.VK_D)) {
-                posX++;
+                if (input.isKeyDown(KeyEvent.VK_D)) {
+                    posX++;
+                }
             }
-        }
 
-        if (!(mainGame.posX - 11 < desk1.posX + (2 * desk1.length) && mainGame.posX + 9 > desk1.posX && mainGame.posY + 10 > desk1.posY && mainGame.posY + 31 < desk1.posY + desk1.width)) {
+            if (!(mainGame.posX - 11 < desks[j].posX + (2 * desks[j].length) && mainGame.posX + 9 > desks[j].posX && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
 
-            if (input.isKeyDown(KeyEvent.VK_A)) {
-                posX--;
+                if (input.isKeyDown(KeyEvent.VK_A)) {
+                    posX--;
+                }
             }
-        }
 
-        if (!(mainGame.posY > desk1.posY && mainGame.posY < desk1.posY + (desk1.width - 29) && mainGame.posX + 9 > desk1.posX && mainGame.posX < desk1.posX + (2 * desk1.length) + 10)) {
+            if (!(mainGame.posY > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 29) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
 
-            if (input.isKeyDown(KeyEvent.VK_W)) {
-                posY--;
+                if (input.isKeyDown(KeyEvent.VK_W)) {
+                    posY--;
+                }
             }
-        }
 
-        if (!(mainGame.posY + 11 > desk1.posY && mainGame.posY < desk1.posY + (desk1.width - 30) && mainGame.posX + 9 > desk1.posX && mainGame.posX < desk1.posX + (2 * desk1.length) + 10)) {
+            if (!(mainGame.posY + 11 > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 30) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
 
-            if (input.isKeyDown(KeyEvent.VK_S)) {
-                posY++;
+                if (input.isKeyDown(KeyEvent.VK_S)) {
+                    posY++;
+                }
             }
         }
     }
@@ -154,12 +159,17 @@ public class Game extends Engine {
         bbg.setColor(Color.RED);
         bbg.fillOval(mainGame.posX, mainGame.posY, 10, 10);
 
+        bbg.setColor(Color.WHITE);
+        for(int j=0; j<deskNum;j++)
+            bbg.fillRect(desks[j].posX, desks[j].posY, desks[j].width, desks[j].length);
+        
         bbg.setColor(Color.RED);
-
-        for (int j = desk1.posX - 15; j < desk1.posX + (2 * desk1.length) - 5; j++) {
-            for (int i = desk1.posY - 15; i < desk1.posY + desk1.width - 45; i++) {
-                if ((int) Math.sqrt(Math.pow((j - mainGame.posX + 10), 2) + Math.pow((i - mainGame.posY + 10), 2)) < 15) {
-                    bbg.drawLine(j + 15, i + 15, j + 15, i + 15);
+        for (int k = 0; k < deskNum; k++) {
+            for (int j = desks[k].posX - 15; j < desks[k].posX + (2 * desks[k].length) - 5; j++) {
+                for (int i = desks[k].posY - 15; i < desks[k].posY + desks[k].width - 45; i++) {
+                    if ((int) Math.sqrt(Math.pow((j - mainGame.posX + 10), 2) + Math.pow((i - mainGame.posY + 10), 2)) < 15) {
+                        bbg.drawLine(j + 15, i + 15, j + 15, i + 15);
+                    }
                 }
             }
         }
