@@ -93,55 +93,56 @@ public class Game extends Engine {
         }
         System.out.println(activeDesk);
         
-        
+        //left collision
         if (!(mainGame.posX + 11 > activeDesk.posX && mainGame.posX < activeDesk.posX + activeDesk.length && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
             if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
                 posX++;
             }
         }
+        //right collision
         if (!(mainGame.posX - 11 < activeDesk.posX + (2 * activeDesk.length) && mainGame.posX + 9 > activeDesk.posX && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
             if (input.isKeyDown(KeyEvent.VK_LEFT)) {
                 posX--;
             }
         }
-
+        //bottom collision
         if (!(mainGame.posY > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
             if (input.isKeyDown(KeyEvent.VK_UP)) {
                 posY--;
             }
         }
-
+        //top collision
         if (!(mainGame.posY + 11 > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
             if (input.isKeyDown(KeyEvent.VK_DOWN)) {
                 posY++;
             }
         }
-
+        //left collision
         if (!(mainGame.posX + 11 > activeDesk.posX && mainGame.posX < activeDesk.posX + activeDesk.length && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
             if (input.isKeyDown(KeyEvent.VK_D)) {
                 posX++;
             }
         }
-
+        //right collision
         if (!(mainGame.posX - 11 < activeDesk.posX + (2 * activeDesk.length) && mainGame.posX + 9 > activeDesk.posX && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
             if (input.isKeyDown(KeyEvent.VK_A)) {
                 posX--;
             }
         }
-
+        //bottom collision
         if (!(mainGame.posY > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 29) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
             if (input.isKeyDown(KeyEvent.VK_W)) {
                 posY--;
             }
         }
-
+        //top collision
         if (!(mainGame.posY + 11 > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
             if (input.isKeyDown(KeyEvent.VK_S)) {
