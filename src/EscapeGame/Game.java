@@ -81,66 +81,74 @@ public class Game extends Engine {
     }
 
     /**
-     * Checks for inputs and such
+     * Checks for inputs and collisions
      */
     @Override
     public void update() {
-        for (int j = 0; j < deskNum; j++) {
-            if (!(mainGame.posX + 11 > desks[j].posX && mainGame.posX < desks[j].posX + desks[j].length && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
+        //select active desk
+        Desk activeDesk = null;
+        for(int j=0;j<deskNum;j++){
+            if(mainGame.posX - desks[j].posX < 5 || mainGame.posY - desks[j].posY < 5)
+                activeDesk = desks[j];
+        }
+        System.out.println(activeDesk);
+        
+        
+        if (!(mainGame.posX + 11 > activeDesk.posX && mainGame.posX < activeDesk.posX + activeDesk.length && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
-                if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
-                    posX++;
-                }
-            }
-            if (!(mainGame.posX - 11 < desks[j].posX + (2 * desks[j].length) && mainGame.posX + 9 > desks[j].posX && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
-
-                if (input.isKeyDown(KeyEvent.VK_LEFT)) {
-                    posX--;
-                }
-            }
-
-            if (!(mainGame.posY > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 29) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
-
-                if (input.isKeyDown(KeyEvent.VK_UP)) {
-                    posY--;
-                }
-            }
-
-            if (!(mainGame.posY + 11 > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 30) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
-
-                if (input.isKeyDown(KeyEvent.VK_DOWN)) {
-                    posY++;
-                }
-            }
-
-            if (!(mainGame.posX + 11 > desks[j].posX && mainGame.posX < desks[j].posX + desks[j].length && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
-
-                if (input.isKeyDown(KeyEvent.VK_D)) {
-                    posX++;
-                }
-            }
-
-            if (!(mainGame.posX - 11 < desks[j].posX + (2 * desks[j].length) && mainGame.posX + 9 > desks[j].posX && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
-
-                if (input.isKeyDown(KeyEvent.VK_A)) {
-                    posX--;
-                }
-            }
-
-            if (!(mainGame.posY > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 29) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
-
-                if (input.isKeyDown(KeyEvent.VK_W)) {
-                    posY--;
-                }
-            }
-
-            if (!(mainGame.posY + 11 > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 30) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
-
-                if (input.isKeyDown(KeyEvent.VK_S)) {
-                    posY++;
-                }
+            if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
+                posX++;
             }
         }
+        if (!(mainGame.posX - 11 < activeDesk.posX + (2 * activeDesk.length) && mainGame.posX + 9 > activeDesk.posX && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
+
+            if (input.isKeyDown(KeyEvent.VK_LEFT)) {
+                posX--;
+            }
+        }
+
+        if (!(mainGame.posY > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
+
+            if (input.isKeyDown(KeyEvent.VK_UP)) {
+                posY--;
+            }
+        }
+
+        if (!(mainGame.posY + 11 > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
+
+            if (input.isKeyDown(KeyEvent.VK_DOWN)) {
+                posY++;
+            }
+        }
+
+        if (!(mainGame.posX + 11 > activeDesk.posX && mainGame.posX < activeDesk.posX + activeDesk.length && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
+
+            if (input.isKeyDown(KeyEvent.VK_D)) {
+                posX++;
+            }
+        }
+
+        if (!(mainGame.posX - 11 < activeDesk.posX + (2 * activeDesk.length) && mainGame.posX + 9 > activeDesk.posX && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
+
+            if (input.isKeyDown(KeyEvent.VK_A)) {
+                posX--;
+            }
+        }
+
+        if (!(mainGame.posY > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 29) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
+
+            if (input.isKeyDown(KeyEvent.VK_W)) {
+                posY--;
+            }
+        }
+
+        if (!(mainGame.posY + 11 > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
+
+            if (input.isKeyDown(KeyEvent.VK_S)) {
+                posY++;
+            }
+        }
+
     }
 
     @Override
@@ -160,9 +168,10 @@ public class Game extends Engine {
         bbg.fillOval(mainGame.posX, mainGame.posY, 10, 10);
 
         bbg.setColor(Color.WHITE);
-        for(int j=0; j<deskNum;j++)
+        for (int j = 0; j < deskNum; j++) {
             bbg.fillRect(desks[j].posX, desks[j].posY, desks[j].width, desks[j].length);
-        
+        }
+
         bbg.setColor(Color.RED);
         for (int k = 0; k < deskNum; k++) {
             for (int j = desks[k].posX - 15; j < desks[k].posX + (2 * desks[k].length) - 5; j++) {
