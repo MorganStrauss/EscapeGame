@@ -38,10 +38,18 @@ public class Game extends Engine {
 
     public int deskNum;
 
+    /**
+     * Instantiating Game object refers back to engine
+     */
     private Game() {
         super();
     }
 
+    /**
+     * Initializes parameter
+     *
+     * @param args
+     */
     public static void main(String args[]) {
         mainGame.fps = 60;
         mainGame.gameName = "Test";
@@ -52,6 +60,9 @@ public class Game extends Engine {
         System.exit(0);
     }
 
+    /**
+     * Initializes and manages thread
+     */
     @Override
     @SuppressWarnings("SleepWhileInLoop")
     public void run() {
@@ -86,72 +97,115 @@ public class Game extends Engine {
     @Override
     public void update() {
         //select active desk
-        Desk activeDesk = null;
-        for(int j=0;j<deskNum;j++){
-            if(mainGame.posX - desks[j].posX < 5 || mainGame.posY - desks[j].posY < 5)
+        Desk activeDesk = desks[0];
+        for (int j = 0; j < deskNum; j++) {
+            if (Math.abs(mainGame.posX - desks[j].posX) < 20 || Math.abs(mainGame.posY - desks[j].posY) < 20) {
                 activeDesk = desks[j];
+            }
         }
-        System.out.println(activeDesk);
-        
+
+        boolean sprint = false;
+
+        if (input.isKeyDown(KeyEvent.VK_SHIFT)) {
+            sprint = true;
+        }
+
         //left collision
         if (!(mainGame.posX + 11 > activeDesk.posX && mainGame.posX < activeDesk.posX + activeDesk.length && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
             if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
-                posX++;
+                if (sprint) {
+                    posX += 2;
+                } else {
+                    posX++;
+                }
             }
         }
         //right collision
         if (!(mainGame.posX - 11 < activeDesk.posX + (2 * activeDesk.length) && mainGame.posX + 9 > activeDesk.posX && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
             if (input.isKeyDown(KeyEvent.VK_LEFT)) {
-                posX--;
+                if (sprint) {
+                    posX -= 2;
+                } else {
+                    posX--;
+                }
             }
         }
         //bottom collision
         if (!(mainGame.posY > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
             if (input.isKeyDown(KeyEvent.VK_UP)) {
-                posY--;
+                if (sprint) {
+                    posY -= 2;
+                } else {
+                    posY--;
+                }
             }
         }
         //top collision
         if (!(mainGame.posY + 11 > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
             if (input.isKeyDown(KeyEvent.VK_DOWN)) {
-                posY++;
+                if (sprint) {
+                    posY += 2;
+                } else {
+                    posY++;
+                }
+
             }
         }
         //left collision
         if (!(mainGame.posX + 11 > activeDesk.posX && mainGame.posX < activeDesk.posX + activeDesk.length && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
             if (input.isKeyDown(KeyEvent.VK_D)) {
-                posX++;
+                if (sprint) {
+                    posX += 2;
+                } else {
+                    posX++;
+                }
             }
         }
         //right collision
         if (!(mainGame.posX - 11 < activeDesk.posX + (2 * activeDesk.length) && mainGame.posX + 9 > activeDesk.posX && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
             if (input.isKeyDown(KeyEvent.VK_A)) {
-                posX--;
+                if (sprint) {
+                    posX -= 2;
+                } else {
+                    posX--;
+                }
             }
         }
         //bottom collision
         if (!(mainGame.posY > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 29) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
             if (input.isKeyDown(KeyEvent.VK_W)) {
-                posY--;
+                if (sprint) {
+                    posY -= 2;
+                } else {
+                    posY--;
+                }
             }
         }
         //top collision
         if (!(mainGame.posY + 11 > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
             if (input.isKeyDown(KeyEvent.VK_S)) {
-                posY++;
+                if (sprint) {
+                    posY += 2;
+                } else {
+                    posY++;
+                }
             }
         }
 
     }
 
+    /**
+     * Draws in graphics on each refresh, utilizes back buffer to prevent
+     * stutter
+     */
     @Override
     public void draw() {
         Graphics g = getGraphics();
@@ -163,7 +217,7 @@ public class Game extends Engine {
 
         Color transYellow = new Color(204, 204, 0, 137);
         bbg.setColor(transYellow);
-        bbg.fillOval(mainGame.posX - 10, mainGame.posY - 10, 30, 30);
+        bbg.fillOval(mainGame.posX - 20, mainGame.posY - 20, 50, 50);
 
         bbg.setColor(Color.RED);
         bbg.fillOval(mainGame.posX, mainGame.posY, 10, 10);
@@ -177,7 +231,7 @@ public class Game extends Engine {
         for (int k = 0; k < deskNum; k++) {
             for (int j = desks[k].posX - 15; j < desks[k].posX + (2 * desks[k].length) - 5; j++) {
                 for (int i = desks[k].posY - 15; i < desks[k].posY + desks[k].width - 45; i++) {
-                    if ((int) Math.sqrt(Math.pow((j - mainGame.posX + 10), 2) + Math.pow((i - mainGame.posY + 10), 2)) < 15) {
+                    if ((int) Math.sqrt(Math.pow((j - mainGame.posX + 10), 2) + Math.pow((i - mainGame.posY + 10), 2)) < 25) {
                         bbg.drawLine(j + 15, i + 15, j + 15, i + 15);
                     }
                 }
