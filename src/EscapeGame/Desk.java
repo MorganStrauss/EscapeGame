@@ -18,19 +18,32 @@ package EscapeGame;
 
 /**
  * Desk obstacles
+ * 
  * @author NTropy
+ * @version 8/26/2018
  */
 public class Desk extends Obstacle {
 
+    /**
+     * Vertical dimension
+     */
     public int width;
+    
+    /**
+     * Horizontal dimension
+     */
     public int length;
 
     /**
      * Desk obstacle
-     * @param x X position
-     * @param y Y position
-     * @param l Length of desk
-     * @param w Width of desk
+     * @param x 
+     *          X position
+     * @param y 
+     *          Y position
+     * @param l             
+     *          Length of desk
+     * @param w 
+     *          Width of desk
      */
     public Desk(int x, int y, int l, int w) {
         posX = x;

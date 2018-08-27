@@ -28,23 +28,58 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * Game engine for 2D game
  *
  * @author Ryan Castelli
+ * @version 8/26/2018
  */
 public class Engine extends JFrame {
 
+    /**
+     * Tracks if game is currently running
+     */
     public boolean isRunning;
 
+    /**
+     * Back buffer to prevent frame stuttering
+     */
     public BufferedImage backBuffer;
 
+    /**
+     * Will handle all input to game
+     */
     public InputHandler input;
 
+    /**
+     * Leaves space between container and game
+     */
     public Insets insets;
 
+    /**
+     * Ideal framerate
+     */
     public int fps;
+
+    /**
+     * Horizontal position of player
+     */
     public int posX;
+
+    /**
+     * Vertical position of player
+     */
     public int posY;
+
+    /**
+     * Height of window
+     */
     public int wHeight;
+
+    /**
+     * Width of window
+     */
     public int wWidth;
     
+    /**
+     * Title of game
+     */
     public String gameName;
 
     /**
@@ -131,7 +166,9 @@ public class Engine extends JFrame {
         }
     }
     
+    /**
+     * To be implemented per game, graphics handler
+     */
     public void draw() {
-        //implement per game
     }
 }

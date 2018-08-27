@@ -25,23 +25,45 @@ import java.awt.event.KeyEvent;
  * 2D Escape Game
  *
  * @author NTropy
+ * @version 8/26/2018
  */
 public class Game extends Engine {
 
+    /**
+     * Will be object eventually run
+     */
     public static Game mainGame = new Game();
 
+    /**
+     * First desk obstacle
+     */
     public Desk desk1 = new Desk(200, 300, 20, 50);
 
+    /**
+     * Second desk obstacle
+     */
     public Desk desk2 = new Desk(500, 700, 20, 50);
 
+    /**
+     * Array of desk obstacles
+     */
     public Desk[] desks;
 
+    /**
+     * Total number of desks
+     */
     public int deskNum;
 
     private Game() {
-        super();
+        super(); //calls super's constructor
     }
 
+    /**
+     * Sets up main game and runs
+     * 
+     * @param args
+     *            Command line arguments
+     */
     public static void main(String args[]) {
         mainGame.fps = 60;
         mainGame.gameName = "Test";
@@ -54,6 +76,9 @@ public class Game extends Engine {
 
     @Override
     @SuppressWarnings("SleepWhileInLoop")
+    /**
+     * Instructions for runtime
+     */
     public void run() {
         super.initialize();
         deskNum = 2;
@@ -77,7 +102,7 @@ public class Game extends Engine {
             }
 
         }
-        mainGame.setVisible(false); //insert game over here
+        mainGame.setVisible(false);
     }
 
     /**
@@ -85,64 +110,114 @@ public class Game extends Engine {
      */
     @Override
     public void update() {
+        //select active desk
+        Desk activeDesk = desks[0];
         for (int j = 0; j < deskNum; j++) {
-            if (!(mainGame.posX + 11 > desks[j].posX && mainGame.posX < desks[j].posX + desks[j].length && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
+            if (Math.abs(mainGame.posX - desks[j].posX) < 20 || Math.abs(mainGame.posY - desks[j].posY) < 20) {
+                activeDesk = desks[j];
+            }
+        }
+        
+        boolean sprint = false;
 
-                if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
+        if (input.isKeyDown(KeyEvent.VK_SHIFT)) {
+            sprint = true;
+        }
+
+        //left collision
+        if (!(mainGame.posX + 11 > activeDesk.posX && mainGame.posX < activeDesk.posX + activeDesk.length && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
+
+            if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
+                if (sprint) {
+                    posX += 2;
+                } else {
                     posX++;
                 }
             }
-            if (!(mainGame.posX - 11 < desks[j].posX + (2 * desks[j].length) && mainGame.posX + 9 > desks[j].posX && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
+        }
+        //right collision
+        if (!(mainGame.posX - 11 < activeDesk.posX + (2 * activeDesk.length) && mainGame.posX + 9 > activeDesk.posX && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
-                if (input.isKeyDown(KeyEvent.VK_LEFT)) {
+            if (input.isKeyDown(KeyEvent.VK_LEFT)) {
+                if (sprint) {
+                    posX -= 2;
+                } else {
                     posX--;
                 }
             }
+        }
+        //bottom collision
+        if (!(mainGame.posY > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
-            if (!(mainGame.posY > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 29) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
-
-                if (input.isKeyDown(KeyEvent.VK_UP)) {
+            if (input.isKeyDown(KeyEvent.VK_UP)) {
+                if (sprint) {
+                    posY -= 2;
+                } else {
                     posY--;
                 }
             }
+        }
+        //top collision
+        if (!(mainGame.posY + 11 > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
-            if (!(mainGame.posY + 11 > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 30) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
-
-                if (input.isKeyDown(KeyEvent.VK_DOWN)) {
+            if (input.isKeyDown(KeyEvent.VK_DOWN)) {
+                if (sprint) {
+                    posY += 2;
+                } else {
                     posY++;
                 }
+
             }
+        }
+        //left collision
+        if (!(mainGame.posX + 11 > activeDesk.posX && mainGame.posX < activeDesk.posX + activeDesk.length && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
-            if (!(mainGame.posX + 11 > desks[j].posX && mainGame.posX < desks[j].posX + desks[j].length && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
-
-                if (input.isKeyDown(KeyEvent.VK_D)) {
+            if (input.isKeyDown(KeyEvent.VK_D)) {
+                if (sprint) {
+                    posX += 2;
+                } else {
                     posX++;
                 }
             }
+        }
+        //right collision
+        if (!(mainGame.posX - 11 < activeDesk.posX + (2 * activeDesk.length) && mainGame.posX + 9 > activeDesk.posX && mainGame.posY + 10 > activeDesk.posY && mainGame.posY + 31 < activeDesk.posY + activeDesk.width)) {
 
-            if (!(mainGame.posX - 11 < desks[j].posX + (2 * desks[j].length) && mainGame.posX + 9 > desks[j].posX && mainGame.posY + 10 > desks[j].posY && mainGame.posY + 31 < desks[j].posY + desks[j].width)) {
-
-                if (input.isKeyDown(KeyEvent.VK_A)) {
+            if (input.isKeyDown(KeyEvent.VK_A)) {
+                if (sprint) {
+                    posX -= 2;
+                } else {
                     posX--;
                 }
             }
+        }
+        //bottom collision
+        if (!(mainGame.posY > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 29) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
-            if (!(mainGame.posY > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 29) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
-
-                if (input.isKeyDown(KeyEvent.VK_W)) {
+            if (input.isKeyDown(KeyEvent.VK_W)) {
+                if (sprint) {
+                    posY -= 2;
+                } else {
                     posY--;
                 }
             }
+        }
+        //top collision
+        if (!(mainGame.posY + 11 > activeDesk.posY && mainGame.posY < activeDesk.posY + (activeDesk.width - 30) && mainGame.posX + 9 > activeDesk.posX && mainGame.posX < activeDesk.posX + (2 * activeDesk.length) + 10)) {
 
-            if (!(mainGame.posY + 11 > desks[j].posY && mainGame.posY < desks[j].posY + (desks[j].width - 30) && mainGame.posX + 9 > desks[j].posX && mainGame.posX < desks[j].posX + (2 * desks[j].length) + 10)) {
-
-                if (input.isKeyDown(KeyEvent.VK_S)) {
+            if (input.isKeyDown(KeyEvent.VK_S)) {
+                if (sprint) {
+                    posY += 2;
+                } else {
                     posY++;
                 }
             }
         }
     }
 
+    /**
+     * Draws in graphics to backbuffer and updates main container
+     */
     @Override
     public void draw() {
         Graphics g = getGraphics();
@@ -174,6 +249,6 @@ public class Game extends Engine {
             }
         }
 
-        g.drawImage(mainGame.backBuffer, mainGame.insets.left, mainGame.insets.top, this);
+        g.drawImage(mainGame.backBuffer, mainGame.insets.left, mainGame.insets.top, this); //draws to main container
     }
 }

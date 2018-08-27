@@ -25,6 +25,7 @@ import java.util.HashSet;
  * Handles input from user
  *
  * @author Ryan Castelli
+ * @version 8/26/2018
  */
 public class InputHandler implements KeyListener {
     
@@ -33,7 +34,8 @@ public class InputHandler implements KeyListener {
     /**
      * Assigns object to a Component
      *
-     * @param c Component passing input
+     * @param c 
+     *          Component passing input
      */
     @SuppressWarnings("LeakingThisInConstructor")
     public InputHandler(Component c) {
@@ -43,7 +45,8 @@ public class InputHandler implements KeyListener {
     /**
      * Checks for specific key press
      *
-     * @param keyCode Key to check
+     * @param keyCode 
+     *                  Key to check
      * @return Whether key is held down
      */
     public boolean isKeyDown (int keyCode) {
@@ -53,7 +56,8 @@ public class InputHandler implements KeyListener {
     /**
      * Called when key is pressed
      *
-     * @param e KeyPressed sent by component
+     * @param e 
+     *          KeyPressed sent by component
      */
     @Override
     public void keyPressed(KeyEvent e) {
@@ -63,7 +67,8 @@ public class InputHandler implements KeyListener {
     /**
      * Called when key is released
      *
-     * @param e KeyEvent sent by component
+     * @param e 
+     *          KeyEvent sent by component
      */
     @Override
     public void keyReleased(KeyEvent e) {
@@ -72,7 +77,8 @@ public class InputHandler implements KeyListener {
 
     /**
      * Unused
-     * @param e N/A
+     * @param e 
+     *          N/A
      */
     @Override
     public void keyTyped(KeyEvent e) {

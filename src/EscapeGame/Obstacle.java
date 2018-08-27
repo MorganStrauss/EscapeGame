@@ -18,11 +18,20 @@ package EscapeGame;
 
 /**
  * Obstacles in game
+ * 
  * @author NTropy
+ * @version 8/26/2018
  */
 abstract class Obstacle {
     
+    /**
+     * Horizontal position of obstacle
+     */
     public int posX;
+    
+    /**
+     * Vertical position of obstacle
+     */
     public int posY;
     
 }
